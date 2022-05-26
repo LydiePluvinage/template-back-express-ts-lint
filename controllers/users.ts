@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import * as User from '../models/user';
 import * as Address from '../models/address';
 import IUser from '../interfaces/IUser';
@@ -37,9 +37,9 @@ const emailIsFree = async (
 ) => {
   try {
     // get email from req.body
-    const user = req.body;
+    const { email } = req.body as IUser;
     // Checks if email already belongs to a registered user
-    const userExists = await User.getUserByEmail(user.email);
+    const userExists = await User.getUserByEmail(email);
     // If email isn't free = Send an error
     if (userExists) {
       next(new ErrorHandler(400, `This user already exists`));
@@ -53,7 +53,11 @@ const emailIsFree = async (
 };
 
 // get all users
-const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+const getAllUsers = (async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const sortBy: string = req.query.sort as string;
     const users = await User.getAllUsers(formatSortString(sortBy));
@@ -62,14 +66,14 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
       'Content-Range',
       `users : 0-${users.length}/${users.length + 1}`
     );
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (err) {
     next(err);
   }
-};
+}) as RequestHandler; // Used to avoid eslint error : Promise returned in function argument where a void return was expected
 
 // get one user
-const getOneUser = async (req: Request, res: Response, next: NextFunction) => {
+const getOneUser = (async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { idUser } = req.params;
     const user = await User.getUserById(Number(idUser));
@@ -77,7 +81,7 @@ const getOneUser = async (req: Request, res: Response, next: NextFunction) => {
   } catch (err) {
     next(err);
   }
-};
+}) as RequestHandler;
 
 // checks if user exists
 const userExists = async (req: Request, res: Response, next: NextFunction) => {

@@ -37,8 +37,8 @@ const emailIsFree = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getAllUsers = async (sortBy: string = ''): Promise<IUser[]> => {
-  let sql: string = `SELECT id, firstname, lastname, email, admin FROM users`;
+const getAllUsers = async (sortBy = ''): Promise<IUser[]> => {
+  let sql = `SELECT id, firstname, lastname, email, admin FROM users`;
   if (sortBy) {
     sql += ` ORDER BY ${sortBy}`;
   }

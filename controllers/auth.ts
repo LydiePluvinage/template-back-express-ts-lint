@@ -5,6 +5,7 @@ import IUserInfo from '../interfaces/IUserInfo';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import Joi from 'joi';
+import IUser from '../interfaces/IUser';
 
 // validates login input
 const validateLogin = (req: Request, res: Response, next: NextFunction) => {
@@ -22,7 +23,7 @@ const validateLogin = (req: Request, res: Response, next: NextFunction) => {
 // logs a user
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body as IUser;
     const user = await User.getUserByEmail(email);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {

@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 import * as Address from '../models/address';
 import IAddress from '../interfaces/IAddress';
 import { ErrorHandler } from '../helpers/errors';
 import { formatSortString } from '../helpers/functions';
 import Joi from 'joi';
 
-const addressesRouter = Router();
 ///////////// ADDRESS ///////////
 // validates input
 const validateAddress = (req: Request, res: Response, next: NextFunction) => {
@@ -47,7 +46,7 @@ const addressExists = async (
 };
 
 // returns all addresses
-const getAllAddresses = async (
+const getAllAddresses = (async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -63,10 +62,10 @@ const getAllAddresses = async (
   } catch (err) {
     next(err);
   }
-};
+}) as RequestHandler;
 
 // get address by id
-const getAddressById = async (
+const getAddressById = (async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -78,7 +77,7 @@ const getAddressById = async (
   } catch (err) {
     next(err);
   }
-};
+}) as RequestHandler;
 
 // get address by id
 const deleteAddress = async (
