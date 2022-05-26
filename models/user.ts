@@ -60,7 +60,7 @@ const getUserByEmail = async (email: string): Promise<IUser> => {
   const [results] = await connection
     .promise()
     .query<IUser[]>(
-      'SELECT email, password, firstname, admin FROM users WHERE email = ?',
+      'SELECT id, email, password, firstname, admin FROM users WHERE email = ?',
       [email]
     );
   return results[0];
