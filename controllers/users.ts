@@ -20,7 +20,7 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
     email: Joi.string().email().max(255).presence(required),
     password: Joi.string().min(8).max(15).presence(required),
     admin: Joi.number().min(0).max(1).optional(),
-    id: Joi.number().optional(),
+    id: Joi.number().optional(), // pour react-admin
   }).validate(req.body, { abortEarly: false }).error;
   if (errors) {
     next(new ErrorHandler(422, errors.message));
@@ -124,7 +124,8 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
       req.body as IUser
     );
     if (userUpdated) {
-      res.status(204).send(req.record); // react-admin needs this response
+      const user = await User.getUserById(Number(idUser));
+      res.status(200).send(user); // react-admin needs this response
     } else {
       throw new ErrorHandler(500, `User cannot be updated`);
     }

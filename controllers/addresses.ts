@@ -18,8 +18,10 @@ const validateAddress = (req: Request, res: Response, next: NextFunction) => {
     city: Joi.string().max(200).presence(required),
     postalCode: Joi.string().max(10).presence(required),
     idUser: Joi.number().presence(required),
+    id: Joi.number().optional(), // pour react-admin
   }).validate(req.body, { abortEarly: false }).error;
   if (errors) {
+    console.log(errors.message);
     next(new ErrorHandler(422, errors.message));
   } else {
     next();
