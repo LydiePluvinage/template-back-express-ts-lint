@@ -84,7 +84,7 @@ const getOneUser = (async (req: Request, res: Response, next: NextFunction) => {
 }) as RequestHandler;
 
 // checks if user exists
-const userExists = async (req: Request, res: Response, next: NextFunction) => {
+const userExists = (async (req: Request, res: Response, next: NextFunction) => {
   // Récupèrer l'id user de req.params
   const { idUser } = req.params;
   // Vérifier si le user existe
@@ -102,7 +102,7 @@ const userExists = async (req: Request, res: Response, next: NextFunction) => {
   } catch (err) {
     next(err);
   }
-};
+}) as RequestHandler;
 
 // adds a user
 const addUser = async (req: Request, res: Response, next: NextFunction) => {
