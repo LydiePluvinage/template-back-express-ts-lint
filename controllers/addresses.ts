@@ -81,7 +81,7 @@ const getAddressById = (async (
   }
 }) as RequestHandler;
 
-// get address by id
+// delete address by id
 const deleteAddress = async (
   req: Request,
   res: Response,
