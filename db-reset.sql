@@ -17,19 +17,18 @@ CREATE TABLE IF NOT EXISTS `Brille`.`users`(
     `admin` TINYINT(1) NOT NULL,
     `firstname` VARCHAR(255) NOT NULL,
     `lastname` VARCHAR(255) NOT NULL,
-    `username` VARCHAR(255) NULL,
     `password` VARCHAR(255) NULL,
     `email` VARCHAR(255) NOT NULL,
     `created` TIMESTAMP NOT NULL,
-    `telephone` INT NOT NULL,
+    `phone` INT NOT NULL,
     `modified` TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`userAddresses`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idUser` INT NOT NULL,
-    `adressLine1` VARCHAR(255) NOT NULL,
-    `adressLine2` VARCHAR(255) NOT NULL,
+    `addressLine1` VARCHAR(255) NOT NULL,
+    `addressLine2` VARCHAR(255) NOT NULL,
     `zipCode` INT NOT NULL,
     `city` VARCHAR(255) NOT NULL,
     `country` VARCHAR(255) NOT NULL
@@ -38,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `Brille`.`userAddresses`(
 CREATE TABLE IF NOT EXISTS `Brille`.`products`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `productRef` VARCHAR(255) NOT NULL,
-    `productType` VARCHAR(255) NOT NULL,
     `productImage` BLOB NOT NULL,
     `productName` VARCHAR(255) NOT NULL,
     `productPrice` DOUBLE(8, 2) NOT NULL,
@@ -52,16 +50,13 @@ CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
     `idUser` INT NOT NULL,
     `orderDate` TIMESTAMP NOT NULL,
     `orderTrackingNum` INT NOT NULL,
-    `orderType` VARCHAR(255) NOT NULL,
     `orderStatus` VARCHAR(255) NOT NULL,
-    `orderValidation` TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`colors`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `colorCode` VARCHAR(255) NOT NULL,
-    `available` TINYINT(1) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`newsletters`(
@@ -77,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`productColors`(
 
 CREATE TABLE IF NOT EXISTS `Brille`.`status`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+    `name` VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
@@ -88,9 +84,19 @@ CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
 CREATE TABLE IF NOT EXISTS `Brille`.`pages`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(255) NOT NULL,
-    `paragraph` TEXT NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`images`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idPage` INT NOT NULL,
     `image` BLOB NOT NULL
 );
+CREATE TABLE IF NOT EXISTS `Brille`.`paragraphs`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idPage` INT NOT NULL,
+    `description` TEXT NOT NULL,
+);
+
 
 ALTER TABLE
     `products` ADD CONSTRAINT `products_productref_foreign` FOREIGN KEY(`productRef`) REFERENCES `productColors`(`id`);
