@@ -1,3 +1,105 @@
+CREATE DATABASE Brille;
+USE Brille;
+
+DROP TABLE IF EXISTS `Brille`.`userAddresses`;
+DROP TABLE IF EXISTS `Brille`.`users`;
+DROP TABLE IF EXISTS `Brille`. `products`;
+DROP TABLE IF EXISTS `Brille`. `orders`;
+DROP TABLE IF EXISTS `Brille`. `colors`;
+DROP TABLE IF EXISTS `Brille`. `newsletters`;
+DROP TABLE IF EXISTS `Brille`. `productColors`;
+DROP TABLE IF EXISTS `Brille`. `status`;
+DROP TABLE IF EXISTS `Brille`. `productOrders`;
+DROP TABLE IF EXISTS `Brille`. `pages`;
+
+CREATE TABLE IF NOT EXISTS `Brille`.`users`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `admin` TINYINT(1) NOT NULL,
+    `firstname` VARCHAR(255) NOT NULL,
+    `lastname` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) NULL,
+    `password` VARCHAR(255) NULL,
+    `email` VARCHAR(255) NOT NULL,
+    `created` TIMESTAMP NOT NULL,
+    `telephone` INT NOT NULL,
+    `modified` TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`userAddresses`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idUser` INT NOT NULL,
+    `adressLine1` VARCHAR(255) NOT NULL,
+    `adressLine2` VARCHAR(255) NOT NULL,
+    `zipCode` INT NOT NULL,
+    `city` VARCHAR(255) NOT NULL,
+    `country` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`products`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `productRef` VARCHAR(255) NOT NULL,
+    `productType` VARCHAR(255) NOT NULL,
+    `productImage` BLOB NOT NULL,
+    `productName` VARCHAR(255) NOT NULL,
+    `productPrice` DOUBLE(8, 2) NOT NULL,
+    `productDesc` VARCHAR(255) NOT NULL,
+    `productStock` INT NOT NULL,
+    `available` TINYINT(1) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idUser` INT NOT NULL,
+    `orderDate` TIMESTAMP NOT NULL,
+    `orderTrackingNum` INT NOT NULL,
+    `orderType` VARCHAR(255) NOT NULL,
+    `orderStatus` VARCHAR(255) NOT NULL,
+    `orderValidation` TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`colors`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `colorCode` VARCHAR(255) NOT NULL,
+    `available` TINYINT(1) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`newsletters`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `email` TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`productColors`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idColor` INT NOT NULL,
+    `idProduct` INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`status`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `idProduct` INT NOT NULL,
+    `idOrder` INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `Brille`.`pages`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `paragraph` TEXT NOT NULL,
+    `image` BLOB NOT NULL
+);
+
+ALTER TABLE
+    `products` ADD CONSTRAINT `products_productref_foreign` FOREIGN KEY(`productRef`) REFERENCES `productColors`(`id`);
+ALTER TABLE
+    `productColors` ADD CONSTRAINT `productcolors_idcolor_foreign` FOREIGN KEY(`idColor`) REFERENCES `colors`(`id`);
+
+
+
+
 CREATE DATABASE Project3;
 USE Project3;
 
