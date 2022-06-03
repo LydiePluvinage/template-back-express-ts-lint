@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`products`(
 CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idUser` INT NOT NULL,
+    `idStatus` INT NOT NULL,
     `orderDate` TIMESTAMP NOT NULL,
     `orderTrackingNum` INT NOT NULL,
     `orderStatus` VARCHAR(255) NOT NULL,
