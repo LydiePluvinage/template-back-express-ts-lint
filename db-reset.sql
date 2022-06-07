@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`users`(
     `modified` TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `Brille`.`Addresses`(
+CREATE TABLE IF NOT EXISTS `Brille`.`addresses`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idUser` INT NOT NULL,
     `addressLine1` VARCHAR(255) NOT NULL,
