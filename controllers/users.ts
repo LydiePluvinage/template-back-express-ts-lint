@@ -4,7 +4,6 @@ import * as Address from '../models/address';
 import IUser from '../interfaces/IUser';
 import IAddress from '../interfaces/IAddress';
 import { ErrorHandler } from '../helpers/errors';
-import { formatSortString } from '../helpers/functions';
 import Joi from 'joi';
 
 ///////////// USERS ///////////////
@@ -59,13 +58,15 @@ const getAllUsers = (async (
   next: NextFunction
 ) => {
   try {
-    const sortBy: string = req.query.sort as string;
-    const users = await User.getAllUsers(formatSortString(sortBy));
+    // appelle le modèle pour récupérer tous les users
+    const users = await User.getAllUsers();
 
+    // react-admin
     res.setHeader(
       'Content-Range',
       `users : 0-${users.length}/${users.length + 1}`
     );
+    // renvoie à l'utilisateur la liste de tous les users
     return res.status(200).json(users);
   } catch (err) {
     next(err);

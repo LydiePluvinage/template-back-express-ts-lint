@@ -23,13 +23,13 @@ const validateLogin = (req: Request, res: Response, next: NextFunction) => {
 // logs a user
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body as IUser;
+    const { email, password = '' } = req.body as IUser;
     const user = await User.getUserByEmail(email);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
       const passwordIsCorrect: boolean = await User.verifyPassword(
         password,
-        user.password
+        (user.password = '')
       );
       if (passwordIsCorrect) {
         const token = calculateToken(email, Number(user.id), user.admin);

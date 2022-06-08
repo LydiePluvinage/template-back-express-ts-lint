@@ -1,5 +1,7 @@
 import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
+// on importe le controller movie
+import moviesController from './controllers/movies';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -7,14 +9,13 @@ const setupRoutes = (server: Express) => {
   // USERS
   // get users
   server.get('/api/users', usersController.getAllUsers);
-  // get user by id
-  server.get('/api/users/:idUser', usersController.getOneUser);
   // post users, checking if email is free then adding user
   server.post(
     '/api/users',
-    authController.getCurrentSession,
-    authController.checkSessionPrivileges,
+    // valide les données fournies dans la requete
     usersController.validateUser,
+    // je vérifie que l'email est disponible
+    // aucun utilisateur n'est déjà enregistré
     usersController.emailIsFree,
     usersController.addUser
   );
@@ -84,6 +85,18 @@ const setupRoutes = (server: Express) => {
     addressesController.addressExists,
     addressesController.validateAddress,
     addressesController.updateAddress
+  );
+
+  // MOVIES
+  // post movies
+  server.post(
+    '/api/movies',
+    // valide le film
+    moviesController.validateMovie,
+    // vérifie si le titre est disponible
+    moviesController.movieTitleIsFree,
+    // ajoute le film à la base de données
+    moviesController.addMovie
   );
 };
 
