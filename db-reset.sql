@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`addresses`(
 CREATE TABLE IF NOT EXISTS `Brille`.`products`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `productRef` VARCHAR(255) NOT NULL,
-    `productImage` BLOB NOT NULL,
+    `productImage` VARCHAR(255) NOT NULL,
     `productName` VARCHAR(255) NOT NULL,
     `productPrice` DOUBLE(8, 2) NOT NULL,
     `productDesc` VARCHAR(255) NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`pages`(
 CREATE TABLE IF NOT EXISTS `Brille`.`images`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idPage` INT NOT NULL,
-    `image` BLOB NOT NULL
+    `image` VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS `Brille`.`paragraphs`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
