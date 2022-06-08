@@ -1,5 +1,6 @@
 import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
+import productsController from './controllers/products';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -85,6 +86,13 @@ const setupRoutes = (server: Express) => {
     addressesController.validateAddress,
     addressesController.updateAddress
   );
+
+  // PRODUCT
+//route GET ALL
+server.get('/api/products',
+productsController.getAllProducts)
+
+
 };
 
 export default setupRoutes;
