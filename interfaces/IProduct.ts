@@ -7,7 +7,7 @@ export default interface IProduct extends RowDataPacket {
   productName : string;
   productPrice : number;
   productDesc : string;
-  productStock : string;
-  available : boolean;
+  productStock : number;
+  
   
 }

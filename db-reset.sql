@@ -1,37 +1,51 @@
 CREATE DATABASE Brille;
+
 USE Brille;
 
-DROP TABLE IF EXISTS `Brille`.`userAddresses`;
+DROP TABLE IF EXISTS `Brille`.`addresses`;
+
 DROP TABLE IF EXISTS `Brille`.`users`;
+
 DROP TABLE IF EXISTS `Brille`. `products`;
+
 DROP TABLE IF EXISTS `Brille`. `orders`;
+
 DROP TABLE IF EXISTS `Brille`. `colors`;
+
 DROP TABLE IF EXISTS `Brille`. `newsletters`;
+
 DROP TABLE IF EXISTS `Brille`. `productColors`;
+
 DROP TABLE IF EXISTS `Brille`. `status`;
+
 DROP TABLE IF EXISTS `Brille`. `productOrders`;
+
 DROP TABLE IF EXISTS `Brille`. `pages`;
+
+DROP TABLE IF EXISTS `Brille`. `images`;
+
+DROP TABLE IF EXISTS `Brille`. `paragraphs`;
 
 CREATE TABLE IF NOT EXISTS `Brille`.`users`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `admin` TINYINT(1) NOT NULL,
-    `firstname` VARCHAR(255) NOT NULL,
-    `lastname` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NULL,
+    `firstname` VARCHAR(100) NOT NULL,
+    `lastname` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(100) NULL,
     `email` VARCHAR(255) NOT NULL,
     `created` TIMESTAMP NOT NULL,
     `phone` INT NOT NULL,
-    `modified` TIMESTAMP NOT NULL
+    `modified` TIMESTAMP NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`addresses`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idUser` INT NOT NULL,
     `addressLine1` VARCHAR(255) NOT NULL,
-    `addressLine2` VARCHAR(255) NOT NULL,
+    `addressLine2` VARCHAR(255) NULL,
     `zipCode` INT NOT NULL,
     `city` VARCHAR(255) NOT NULL,
-    `country` VARCHAR(255) NOT NULL
+    `country` VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`products`(
@@ -40,9 +54,8 @@ CREATE TABLE IF NOT EXISTS `Brille`.`products`(
     `productImage` BLOB NOT NULL,
     `productName` VARCHAR(255) NOT NULL,
     `productPrice` DOUBLE(8, 2) NOT NULL,
-    `productDesc` VARCHAR(255) NOT NULL,
-    `productStock` INT NOT NULL,
-    `available` TINYINT(1) NOT NULL
+    `productDesc` VARCHAR(255) NULL,
+    `productStock` INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
@@ -73,8 +86,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`productColors`(
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`status`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
-    `name` VARCHAR(255) NOT NULL,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY `name` VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
@@ -93,62 +105,135 @@ CREATE TABLE IF NOT EXISTS `Brille`.`images`(
     `idPage` INT NOT NULL,
     `image` BLOB NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS `Brille`.`paragraphs`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idPage` INT NOT NULL,
     `description` TEXT NOT NULL,
 );
 
+ALTER TABLE
+    `products`
+ADD
+    CONSTRAINT `products_productref_foreign` FOREIGN KEY(`productRef`) REFERENCES `productColors`(`id`);
 
 ALTER TABLE
-    `products` ADD CONSTRAINT `products_productref_foreign` FOREIGN KEY(`productRef`) REFERENCES `productColors`(`id`);
-ALTER TABLE
-    `productColors` ADD CONSTRAINT `productcolors_idcolor_foreign` FOREIGN KEY(`idColor`) REFERENCES `colors`(`id`);
+    `productColors`
+ADD
+    CONSTRAINT `productcolors_idcolor_foreign` FOREIGN KEY(`idColor`) REFERENCES `colors`(`id`);
 
+INSERT INTO
+    users (
+        firstname,
+        lastname,
+        email,
+        admin,
+        created,
+        phone,
+        modified
+    )
+VALUES(
+        'Lydie',
+        'Pluvinage',
+        'lydie.pluvinage@wildcodeschool.com',
+        1,
+        NOW(),
+        "0554548585",
+        null
+    ),
+    (
+        'Joseph',
+        'Mayoral',
+        'joseph.mayoral@wildcodeschool.com',
+        1,
+        NOW(),
+        "0554548585",
+        null
+    ),
+    (
+        'Camille',
+        'Sabatier',
+        'camille.sabatier@wildcodeschool.com',
+        0,
+        NOW(),
+        "0554548585",
+        null
+    ),
+    (
+        'Kaïko',
+        'Pluvinage',
+        'nonos@woof.fr',
+        0,
+        NOW(),
+        "0554548585",
+        null
+    );
 
+INSERT INTO
+    addresses (
+        zipCode,
+        city,
+        addressLine1,
+        addressLine2,
+        idUser,
+        country
+    )
+VALUES(
+        '64100',
+        'Bayonne',
+        'Sur la place',
+        null,
+        1,
+        "France"
+    ),
+    (
+        '64100',
+        'Bayonne',
+        'Au bout de la rue',
+        'Au fond à droite',
+        1,
+        "France"
+    ),
+    (
+        '64200',
+        'Biarritz',
+        '8 min de l''école',
+        'Mais bon ça reste à Biarritz',
+        2,
+        "France"
+    ),
+    (
+        '33000',
+        'Bordeaux',
+        'A côté des girondins',
+        null,
+        3,
+        "France"
+    ),
+    (
+        '64990',
+        'Villefranque',
+        'Au bout du chemin',
+        null,
+        4,
+        "France"
+    );
 
-
-CREATE DATABASE Project3;
-USE Project3;
-
-DROP TABLE IF EXISTS `Project3`.`addresses`;
-DROP TABLE IF EXISTS `Project3`.`users`;
-
-CREATE TABLE IF NOT EXISTS `Project3`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(100) NOT NULL,
-  `lastname` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `admin` TINYINT(1) NULL DEFAULT 0,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `Project3`.`addresses` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `postalCode` VARCHAR(10) NOT NULL,
-  `city` VARCHAR(200) NOT NULL,
-  `address1` VARCHAR(255) NOT NULL,
-  `address2` VARCHAR(255) NULL,
-  `idUser` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_addresses_users_idx` (`idUser` ASC) VISIBLE,
-  CONSTRAINT `fk_addresses_users`
-    FOREIGN KEY (`idUser`)
-    REFERENCES `Project3`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-INSERT INTO users (firstname, lastname, email, admin, password) 
-VALUES('Lydie', 'Pluvinage','lydie.pluvinage@wildcodeschool.com',1, "$argon2id$v=19$m=65536,t=5,p=1$KLNhy8gcHqN0nDym48Eb5A$z3LKPSRROAsoMacPYuZ+/4cxOktoscgWBHvrtpBs0x4"),
-('Joseph', 'Mayoral', 'joseph.mayoral@wildcodeschool.com',1,"$argon2id$v=19$m=65536,t=5,p=1$KLNhy8gcHqN0nDym48Eb5A$z3LKPSRROAsoMacPYuZ+/4cxOktoscgWBHvrtpBs0x4"),
-('Camille', 'Sabatier', 'camille.sabatier@wildcodeschool.com',0,"$argon2id$v=19$m=65536,t=5,p=1$KLNhy8gcHqN0nDym48Eb5A$z3LKPSRROAsoMacPYuZ+/4cxOktoscgWBHvrtpBs0x4"),
-('Kaïko', 'Pluvinage', 'nonos@woof.fr',0,"$argon2id$v=19$m=65536,t=5,p=1$KLNhy8gcHqN0nDym48Eb5A$z3LKPSRROAsoMacPYuZ+/4cxOktoscgWBHvrtpBs0x4");
-
-INSERT INTO addresses (postalCode, city, address1, address2, idUser)
-VALUES('64100', 'Bayonne', 'Sur la place', null, 1),
-('64100', 'Bayonne', 'Au bout de la rue', 'Au fond à droite', 1),
-('64200', 'Biarritz', '8 min de l''école', 'Mais bon ça reste à Biarritz', 2),
-('33000', 'Bordeaux', 'A côté des girondins', null, 3),
-('64990', 'Villefranque', 'Au bout du chemin', null, 4);
+INSERT INTO
+    products (
+        productRef,
+        productImage,
+        productName,
+        productPrice,
+        productDesc,
+        productStock
+    )
+VALUES
+    (
+        'e10',
+        'https://m.media-amazon.com/images/I/61+Od3hufmL._AC_SX569_.jpg',
+        'sac en pépin de pomme',
+        15,
+        NULL,
+        3
+    );

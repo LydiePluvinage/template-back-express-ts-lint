@@ -49,19 +49,19 @@ const updateAddress = async (
   const sqlValues: Array<string | number> = [];
   let oneValue = false;
 
-  if (address.address1) {
+  if (address.addressLine1) {
     sql += 'address1 = ? ';
-    sqlValues.push(address.address1);
+    sqlValues.push(address.addressLine1);
     oneValue = true;
   }
-  if (address.address2) {
+  if (address.addressLine2) {
     sql += oneValue ? ', address2 = ? ' : ' address2 = ? ';
-    sqlValues.push(address.address2);
+    sqlValues.push(address.addressLine2);
     oneValue = true;
   }
-  if (address.postal_code) {
+  if (address.zipCode) {
     sql += oneValue ? ', postalCode = ? ' : ' postalCode = ? ';
-    sqlValues.push(address.postalCode);
+    sqlValues.push(address.zipCode);
     oneValue = true;
   }
   if (address.city) {

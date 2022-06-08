@@ -1,9 +1,12 @@
 import { RowDataPacket } from 'mysql2';
 
 export default interface IAddress extends RowDataPacket {
-  address1: string;
-  address2: string;
-  postalCode: number;
-  city: string;
+  id: number;
   idUser: number;
+  addressLine1 : string;
+  addressLine2 : string;
+  zipCode : number;
+  city : string;
+  country : string;
+  
 }
