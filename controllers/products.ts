@@ -106,8 +106,8 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
       req.body as IProduct
     );
     if (productUpdated) {
-      const user = await Product.getProductById(Number(idProduct));
-      res.status(200).send(user); // react-admin needs this response
+      const product = await Product.getProductById(Number(idProduct));
+      res.status(200).send(product); // react-admin needs this response
     } else {
       throw new ErrorHandler(500, `Product cannot be updated`);
     }
@@ -117,8 +117,26 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 
+//delete product
+const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Récupèrer l'id product de req.params
+    const { idProduct } = req.params;
+    // Vérifie if product exist
+    const product = await Product.getProductById(Number(idProduct));
+    const productDeleted = await Product.deleteProduct(Number(idProduct));
+    if (productDeleted) {
+      res.status(200).send(product); // react-admin needs this response
+    } else {
+      throw new ErrorHandler(500, `This product cannot be deleted`);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 
   export default {
-      getAllProducts,getOneProduct,addProduct,validateProduct,productExists,updateProduct,
+      getAllProducts,getOneProduct,addProduct,validateProduct,productExists,updateProduct,deleteProduct,
 
   };

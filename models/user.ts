@@ -38,7 +38,7 @@ const emailIsFree = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAllUsers = async (sortBy = ''): Promise<IUser[]> => {
-  let sql = `SELECT id, firstname, lastname, email, admin FROM users`;
+  let sql = `SELECT id, firstname, lastname, email, created, phone, modified, admin FROM users`;
   if (sortBy) {
     sql += ` ORDER BY ${sortBy}`;
   }
@@ -50,7 +50,7 @@ const getUserById = async (idUser: number): Promise<IUser> => {
   const [results] = await connection
     .promise()
     .query<IUser[]>(
-      'SELECT id, firstname, lastname, email, admin FROM users WHERE id = ?',
+      'SELECT id, firstname, lastname, email, created, phone, modified, admin FROM users WHERE id = ?',
       [idUser]
     );
   return results[0];
@@ -60,7 +60,7 @@ const getUserByEmail = async (email: string): Promise<IUser> => {
   const [results] = await connection
     .promise()
     .query<IUser[]>(
-      'SELECT id, email, password, firstname, admin FROM users WHERE email = ?',
+      'SELECT id, email, password, firstname,created, phone, modified, admin FROM users WHERE email = ?',
       [email]
     );
   return results[0];
@@ -71,15 +71,15 @@ const addUser = async (user: IUser): Promise<number> => {
   const results = await connection
     .promise()
     .query<ResultSetHeader>(
-      'INSERT INTO users (firstname, lastname, email, password, admin) VALUES (?, ?, ?, ?, ?)',
-      [user.firstname, user.lastname, user.email, hashedPassword, user.admin]
+      'INSERT INTO users (firstname, lastname, email, password, admin,created, phone, modified,) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [user.firstname, user.lastname, user.email, hashedPassword, user.admin, user.created, user.phone, user.modified,]
     );
   return results[0].insertId;
 };
 
 const updateUser = async (idUser: number, user: IUser): Promise<boolean> => {
   let sql = 'UPDATE users SET ';
-  const sqlValues: Array<string | number | boolean> = [];
+  const sqlValues: Array<string | number | boolean | Date> = [];
   let oneValue = false;
 
   if (user.firstname) {
@@ -95,6 +95,21 @@ const updateUser = async (idUser: number, user: IUser): Promise<boolean> => {
   if (user.email) {
     sql += oneValue ? ', email = ? ' : ' email = ? ';
     sqlValues.push(user.email);
+    oneValue = true;
+  }
+  if (user.created) {
+    sql += oneValue ? ', created = ? ' : ' created = ? ';
+    sqlValues.push(user.created);
+    oneValue = true;
+  }
+  if (user.phone) {
+    sql += oneValue ? ', phone = ? ' : ' phone = ? ';
+    sqlValues.push(user.phone);
+    oneValue = true;
+  }
+  if (user.modified) {
+    sql += oneValue ? ', modified = ? ' : ' modified = ? ';
+    sqlValues.push(user.modified);
     oneValue = true;
   }
   if (user.password) {

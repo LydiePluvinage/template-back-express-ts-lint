@@ -86,7 +86,16 @@ const updateProduct = async (idProduct: number, product: IProduct): Promise<bool
   return results[0].affectedRows === 1;
 };
 
+//route delete Product
+
+const deleteProduct = async (idProduct: number): Promise<boolean> => {
+  const results = await connection
+    .promise()
+    .query<ResultSetHeader>('DELETE FROM products WHERE id = ?', [idProduct]);
+  return results[0].affectedRows === 1;
+};
+
 
   export {
-      getAllProducts,getProductById,addProduct,updateProduct,
+      getAllProducts,getProductById,addProduct,updateProduct,deleteProduct,
   };

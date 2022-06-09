@@ -108,6 +108,13 @@ server.put(
   productsController.updateProduct
 );
 
+//route delete
+server.delete(
+  '/api/products/:idProduct',
+  productsController.productExists,
+  productsController.deleteProduct
+);
+
 };
 
 export default setupRoutes;
