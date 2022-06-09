@@ -1,5 +1,6 @@
 import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
+import productsController from './controllers/products';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -85,6 +86,28 @@ const setupRoutes = (server: Express) => {
     addressesController.validateAddress,
     addressesController.updateAddress
   );
+
+  // PRODUCT
+//route GET ALL
+server.get('/api/products',productsController.getAllProducts)
+
+//route GET by id
+server.get('/api/products/:idProduct', productsController.getOneProduct);
+
+ //route POST
+ server.post('/api/products',
+ productsController.validateProduct,
+ productsController.addProduct
+);
+
+//route PUT
+server.put(
+  '/api/products/:idProduct',
+  productsController.validateProduct,
+  productsController.productExists,
+  productsController.updateProduct
+);
+
 };
 
 export default setupRoutes;
