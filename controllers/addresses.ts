@@ -13,10 +13,11 @@ const validateAddress = (req: Request, res: Response, next: NextFunction) => {
     required = 'required';
   }
   const errors = Joi.object({
-    address1: Joi.string().max(255).presence(required),
-    address2: Joi.string().max(255).optional().allow(null), // pour react-admin qui envoie null et pas undefined
+    addressLine1: Joi.string().max(255).presence(required),
+    addressLine2: Joi.string().max(255).optional(),
     city: Joi.string().max(200).presence(required),
-    postalCode: Joi.string().max(10).presence(required),
+    country: Joi.string().max(200).presence(required),
+    zipCode: Joi.number().max(10).presence(required),
     idUser: Joi.number().presence(required),
     id: Joi.number().optional(), // pour react-admin
   }).validate(req.body, { abortEarly: false }).error;
