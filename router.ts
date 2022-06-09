@@ -1,6 +1,7 @@
 import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
 import productsController from './controllers/products';
+import statusController from './controllers/status';
 import imagesController from './controllers/images';
 import authController from './controllers/auth';
 import { Express } from 'express';
@@ -110,14 +111,12 @@ const setupRoutes = (server: Express) => {
     productsController.updateProduct
   );
 
-
-//route delete
-server.delete(
-  '/api/products/:idProduct',
-  productsController.productExists,
-  productsController.deleteProduct
-);
-
+  //route delete
+  server.delete(
+    '/api/products/:idProduct',
+    productsController.productExists,
+    productsController.deleteProduct
+  );
 
   // >> --- IMAGES ---
   // ? GET all the images
@@ -141,6 +140,15 @@ server.delete(
     imagesController.updateImage
   );
 
+  // => ROUTES GET POUR STATUS <= //
+  //GET ALL
+  server.get('/api/status', statusController.getAllStatus);
+  //GET BY ID
+  server.get('/api/status/:idStatus', statusController.getOneStatus);
+  // POST status
+  server.post('/api/status', statusController.addStatus);
+  // PUT status
+  server.put('/api/status/:idStatus', statusController.updateStatus);
 };
 
 export default setupRoutes;
