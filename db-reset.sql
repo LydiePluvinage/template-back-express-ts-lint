@@ -236,4 +236,12 @@ VALUES
         15,
         NULL,
         3
+    ),
+    (
+        'e15',
+        'https://m.media-amazon.com/images/I/61+Od3hufmL._AC_SX569_.jpg',
+        'sac en pépin de poire',
+        25,
+        NULL,
+        9
     );
