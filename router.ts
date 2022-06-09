@@ -1,6 +1,7 @@
 import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
 import productsController from './controllers/products';
+import imagesController from './controllers/images';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -88,11 +89,12 @@ const setupRoutes = (server: Express) => {
   );
 
   // PRODUCT
-//route GET ALL
-server.get('/api/products',
-productsController.getAllProducts)
+  //route GET ALL
+  server.get('/api/products', productsController.getAllProducts);
 
-
+  // >> IMAGES
+  // ? All images
+  server.get('/api/images', imagesController.getAllImages);
 };
 
 export default setupRoutes;
