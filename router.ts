@@ -2,6 +2,7 @@ import usersController from './controllers/users';
 import addressesController from './controllers/addresses';
 import productsController from './controllers/products';
 import statusController from './controllers/status';
+import colorsController from './controllers/colors';
 import imagesController from './controllers/images';
 import authController from './controllers/auth';
 import { Express } from 'express';
@@ -149,6 +150,24 @@ const setupRoutes = (server: Express) => {
   server.post('/api/status', statusController.addStatus);
   // PUT status
   server.put('/api/status/:idStatus', statusController.updateStatus);
-};
 
+  // => COLORS <= //
+  // GET ALL
+  server.get('/api/colors', colorsController.getAllColors);
+  // GET BY ID
+  server.get('/api/colors/:idColor', colorsController.getOneColor);
+  // POST color
+  server.post(
+    '/api/colors',
+    colorsController.validateColor,
+    colorsController.addColor
+  );
+  // PUT colors
+  server.put(
+    '/api/colors/:idColor',
+    colorsController.validateColor,
+    colorsController.colorExists,
+    colorsController.updateColor
+  );
+};
 export default setupRoutes;
