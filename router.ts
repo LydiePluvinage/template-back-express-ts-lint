@@ -110,6 +110,15 @@ const setupRoutes = (server: Express) => {
     productsController.updateProduct
   );
 
+
+//route delete
+server.delete(
+  '/api/products/:idProduct',
+  productsController.productExists,
+  productsController.deleteProduct
+);
+
+
   // >> --- IMAGES ---
   // ? GET all the images
   server.get('/api/images', imagesController.getAllImages);
@@ -131,6 +140,7 @@ const setupRoutes = (server: Express) => {
     imagesController.imageExists,
     imagesController.updateImage
   );
+
 };
 
 export default setupRoutes;
