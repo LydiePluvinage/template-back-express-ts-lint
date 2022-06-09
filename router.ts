@@ -4,6 +4,7 @@ import productsController from './controllers/products';
 import statusController from './controllers/status';
 import colorsController from './controllers/colors';
 import imagesController from './controllers/images';
+import paragraphsController from './controllers/paragraphs';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -124,7 +125,7 @@ const setupRoutes = (server: Express) => {
   server.get('/api/images', imagesController.getAllImages);
 
   // ? GET an image by id
-  server.get('/api/images/:idImage', imagesController.getAllImages);
+  server.get('/api/images/:idImage', imagesController.getOneImage);
 
   // ? POST a new image
   server.post(
@@ -133,12 +134,37 @@ const setupRoutes = (server: Express) => {
     imagesController.addImage
   );
 
-  // ? MODIFY the images table
+  // ? MODIFY an image
   server.put(
     '/api/images/:idImage',
     imagesController.validateImage,
     imagesController.imageExists,
     imagesController.updateImage
+  );
+
+  // >> --- PARAGRAPHS ---
+  // ? GET all the paragraphs
+  server.get('/api/paragraphs', paragraphsController.getAllParagraphs);
+
+  // ? GET a paragraph by id
+  server.get(
+    '/api/paragraphs/:idParagraph',
+    paragraphsController.getOneParagraph
+  );
+
+  // ? POST a new paragrah
+  server.post(
+    '/api/paragraphs',
+    paragraphsController.validateParagraph,
+    paragraphsController.addParagraph
+  );
+
+  // ? MODIFY a paragraph
+  server.put(
+    '/api/paragraphs/:idImage',
+    paragraphsController.validateParagraph,
+    paragraphsController.paragraphExists,
+    paragraphsController.updateParagraph
   );
 
   // => ROUTES GET POUR STATUS <= //
