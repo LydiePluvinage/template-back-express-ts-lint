@@ -109,8 +109,8 @@ const updateImage = async (req: Request, res: Response, next: NextFunction) => {
       req.body as IImage
     );
     if (imageUpdated) {
-      const user = await Image.getImageById(Number(idImage));
-      res.status(200).send(user); // react-admin needs this response
+      const image = await Image.getImageById(Number(idImage));
+      res.status(200).send(image); // react-admin needs this response
     } else {
       throw new ErrorHandler(500, `Image cannot be updated`);
     }
