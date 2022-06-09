@@ -44,17 +44,17 @@ CREATE TABLE IF NOT EXISTS `Brille`.`addresses`(
     `addressLine1` VARCHAR(255) NOT NULL,
     `addressLine2` VARCHAR(255) NULL,
     `zipCode` INT NOT NULL,
-    `city` VARCHAR(255) NOT NULL,
+    `city` VARCHAR(100) NOT NULL,
     `country` VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`products`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `productRef` VARCHAR(255) NOT NULL,
-    `productImage` VARCHAR(255) NOT NULL,
-    `productName` VARCHAR(255) NOT NULL,
+    `productRef` VARCHAR(100) NOT NULL,
+    `productImage` TEXT NOT NULL,
+    `productName` VARCHAR(100) NOT NULL,
     `productPrice` DOUBLE(8, 2) NOT NULL,
-    `productDesc` VARCHAR(255) NULL,
+    `productDesc` TEXT NULL,
     `productStock` INT NOT NULL
 );
 
@@ -65,18 +65,18 @@ CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
     `idAddress` INT NOT NULL,
     `orderDate` TIMESTAMP NOT NULL,
     `orderTrackingNum` INT NOT NULL,
-    `orderStatus` VARCHAR(255) NOT NULL,
+    `orderStatus` VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`colors`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
-    `colorCode` VARCHAR(255) NOT NULL,
+    `colorCode` VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`newsletters`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `email` TEXT NOT NULL
+    `email` VARCHAR (255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`productColors`(
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`productColors`(
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`status`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY `name` VARCHAR(255) NOT NULL,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`productOrders`(
 
 CREATE TABLE IF NOT EXISTS `Brille`.`pages`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `title` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`images`(
@@ -109,18 +109,8 @@ CREATE TABLE IF NOT EXISTS `Brille`.`images`(
 CREATE TABLE IF NOT EXISTS `Brille`.`paragraphs`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `idPage` INT NOT NULL,
-    `description` TEXT NOT NULL,
+    `description` TEXT NULL
 );
-
-ALTER TABLE
-    `products`
-ADD
-    CONSTRAINT `products_productref_foreign` FOREIGN KEY(`productRef`) REFERENCES `productColors`(`id`);
-
-ALTER TABLE
-    `productColors`
-ADD
-    CONSTRAINT `productcolors_idcolor_foreign` FOREIGN KEY(`idColor`) REFERENCES `colors`(`id`);
 
 INSERT INTO
     users (
@@ -233,7 +223,245 @@ VALUES
         'e10',
         'https://m.media-amazon.com/images/I/61+Od3hufmL._AC_SX569_.jpg',
         'sac en pépin de pomme',
-        15,
-        NULL,
+        150,
+        'Brille réinvente la maroquinerie et la rend éco-responsable',
+        3
+    ),
+    (
+        'e11',
+        'https://www.modress.com/ori-sac-a-main-noir-13148.jpg',
+        'sac en pépin de poire',
+        175,
+        'Brille réinvente la maroquinerie et la rend éco-responsable',
+        2
+    ),
+    (
+        'e12',
+        'https://www.ecolochic.net/photo/art/grande/58548890-43162579.jpg?v=1630050618',
+        'sac en pépin de raisins',
+        110,
+        'Brille réinvente la maroquinerie et la rend éco-responsable',
+        5
+    );
+
+   INSERT INTO
+    orders (
+        idUser,
+        idStatus,
+        idAddress,
+        orderDate,
+        orderTrackingNum,
+        orderStatus
+    )
+VALUES
+    (
+        1,
+        1,
+        1,
+        NOW(),
+        3294,
+        'Validée'
+    ),
+    (
+        1,
+        1,
+        1,
+        NOW(),
+        8675,
+        'Validée'
+    ),
+    (
+        3,
+        2,
+        3,
+        NOW(),
+        937,
+        'Supprimée'
+    ),
+    (
+        2,
+        3,
+        2,
+        NOW(),
+        34,
+        'En attente'
+    );
+
+              INSERT INTO
+    status (
+        name
+    )
+VALUES
+    (
+        'Non livrée'
+    ),
+    (
+        'Livrée'
+    ),
+    (
+        'Non livrée'
+    ),
+    (
+        'Non livrée'
+    );
+
+    INSERT INTO
+    productOrders (
+        idProduct,
+        idOrder
+    )
+VALUES
+    (
+        1,
+        1
+    ),
+    (
+        3,
+        1
+    ),
+    (
+        2,
+        3
+    ),
+    (
+        3,
         3
     );
+
+    INSERT INTO
+    colors (
+        name,
+        colorCode
+    )
+VALUES
+    (
+        'Rouge mandarine',
+        "#FF6666"
+    ),
+    (
+        'Bleu ocean',
+        "#2D8CD6"
+    ),
+    (
+        'Vert poire',
+        "#8CCF3C"
+    );
+
+    INSERT INTO
+    newsletters (
+        email
+    )
+VALUES
+    (
+        'test1@gmail.com'
+    ),
+    (
+        'test2@gmail.com'
+    ),
+    (
+        'test3@gmail.com'
+    );
+
+        INSERT INTO
+    productColors (
+        idColor,
+        idProduct
+    )
+VALUES
+    (
+        1,
+        1
+    ),
+    (
+        1,
+        2
+    ),
+    (
+        1,
+        3
+    ),
+    (
+        1,
+        3
+    ),
+    (
+        2,
+        1
+    ),
+    (
+        2,
+        2
+    ),
+    (
+        2,
+        3
+    ),
+    (
+        3,
+        1
+    ),
+    (
+        3,
+        2
+    ),
+    (
+        3,
+        3
+    );
+
+     INSERT INTO
+    pages (
+        title
+    )
+VALUES
+    (
+        'Nos sacs'
+    ),
+    (
+        'Univers Brille'
+    ),
+    (
+        'Contact'
+    );
+
+         INSERT INTO
+    images (
+        idPage,
+        image
+    )
+VALUES
+    (
+        1,
+        'https://www.modress.com/ori-sac-a-main-style-cartable-noir-11271.jpg'
+    ),
+    (
+        1,
+        'http://cdn.shopify.com/s/files/1/0101/6381/4464/products/TGIS1010B15-a-wayqoop2190403-ts1642763160-a_grande.JPG?v=1642763161'
+    ),
+    (
+        2,
+        'https://resize.prod.femina.ladmedia.fr/r/652,/img/var/2019-04/1556205412_pigeon-coq1.jpg?dfc58d1c2c'
+    ),
+    (
+        3,
+        'https://images.ctfassets.net/lixvno921dbl/6jR9xpLdMxq7hrjkwRGF7K/8377f8dc3d89eafe801d506c4bd74193/RICH_EXPORT.jpg?fm=jpg&fl=progressive'
+    );
+
+INSERT INTO
+    paragraphs (
+        idPage,
+        description
+    )
+VALUES
+    (
+        1,
+        'Sac en « cuir vegan », comprenez sans aucun produit d’origine animal. En quoi est-ce écologique ? Les sacs de chez BRILLE sont fabriqués à partir de bouteilles d’eau en plastique recyclées (18 exactement) rien que pour la doublure aspect suédine de ce sac nommé Tundra.'
+    ),
+    (
+        1,
+        'Sac recyclé, le Ludwig d’Issi. Une série limitée réalisée cette fois à partir de lances à incendie hors service… un sac idéal pour partir en week-end.'
+    );
+
+
+
+   
