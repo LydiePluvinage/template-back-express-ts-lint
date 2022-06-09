@@ -6,7 +6,17 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",

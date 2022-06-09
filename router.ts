@@ -3,6 +3,7 @@ import addressesController from './controllers/addresses';
 import productsController from './controllers/products';
 import statusController from './controllers/status';
 import imagesController from './controllers/images';
+import newslettersController from './controllers/newsletters';
 import authController from './controllers/auth';
 import { Express } from 'express';
 
@@ -123,7 +124,7 @@ const setupRoutes = (server: Express) => {
   server.get('/api/images', imagesController.getAllImages);
 
   // ? GET an image by id
-  server.get('/api/images/:idImage', imagesController.getAllImages);
+  server.get('/api/images/:idImage', imagesController.getOneImage);
 
   // ? POST a new image
   server.post(
@@ -149,6 +150,39 @@ const setupRoutes = (server: Express) => {
   server.post('/api/status', statusController.addStatus);
   // PUT status
   server.put('/api/status/:idStatus', statusController.updateStatus);
-};
 
+
+// NEWSLETTERS
+  //route GET ALL
+  server.get('/api/newsletters', newslettersController.getAllNewsletters);
+
+  //route GET by id
+  server.get('/api/newsletters/:idNewsletter', newslettersController.getOneNewsletter);
+
+  //route POST
+  server.post(
+    '/api/newsletters',
+    newslettersController.validateNewsletter,
+    newslettersController.addNewsletter
+  );
+
+  //route PUT
+  server.put(
+    '/api/newsletters/:idNewsletters',
+    newslettersController.validateNewsletter,
+    newslettersController.newsletterExists,
+    newslettersController.updateNewsletter
+  );
+
+  //route delete
+
+  server.delete(
+    '/api/newsletters/:idNewsletters',
+    newslettersController.newsletterExists,
+    newslettersController.deleteNewsletter,
+  );
+
+
+
+};
 export default setupRoutes;
