@@ -110,11 +110,11 @@ const setupRoutes = (server: Express) => {
     productsController.updateProduct
   );
 
-  // >> IMAGES
-  // ? GET all images
+  // >> --- IMAGES ---
+  // ? GET all the images
   server.get('/api/images', imagesController.getAllImages);
 
-  // ? GET images by id
+  // ? GET an image by id
   server.get('/api/images/:idImage', imagesController.getAllImages);
 
   // ? POST a new image
@@ -122,6 +122,14 @@ const setupRoutes = (server: Express) => {
     '/api/images',
     imagesController.validateImage,
     imagesController.addImage
+  );
+
+  // ? MODIFY the images table
+  server.put(
+    '/api/images/:idImage',
+    imagesController.validateImage,
+    imagesController.imageExists,
+    imagesController.updateImage
   );
 };
 

@@ -5,7 +5,7 @@ import * as Image from '../models/image';
 import { ErrorHandler } from '../helpers/errors';
 import Joi from 'joi';
 
-// >> --- VALIDATE NEW IMAGE ---
+// >> --- VALIDATE NEW IMAGE (for the POST route) ---
 const validateImage = (req: Request, res: Response, next: NextFunction) => {
   let required: Joi.PresenceMode = 'optional';
   if (req.method === 'POST') {
@@ -73,9 +73,57 @@ const addImage = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// >> --- PUT AN IMAGE (by ID) ---
+
+// ! 1st step : check if the image exists
+const imageExists = (async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // Récupèrer l'id product de req.params
+  const { idImage } = req.params;
+  // Vérifier si l'image existe
+  try {
+    const imageExists = await Image.getImageById(Number(idImage));
+    // Si pas d'image => erreur
+    if (!imageExists) {
+      next(new ErrorHandler(404, `This image does not exist`));
+    }
+    // Si oui => next()
+    else {
+      // req.record = image.Exists; // because we need deleted record to be sent after a delete in react-admin
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+}) as RequestHandler;
+
+// ! 2nd step : update the image
+const updateImage = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { idImage } = req.params;
+    const imageUpdated = await Image.updateImage(
+      Number(idImage),
+      req.body as IImage
+    );
+    if (imageUpdated) {
+      const user = await Image.getImageById(Number(idImage));
+      res.status(200).send(user); // react-admin needs this response
+    } else {
+      throw new ErrorHandler(500, `Image cannot be updated`);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   getAllImages,
   getOneImage,
   addImage,
   validateImage,
+  updateImage,
+  imageExists,
 };

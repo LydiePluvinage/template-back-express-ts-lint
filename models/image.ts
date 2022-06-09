@@ -31,4 +31,32 @@ const addImage = async (image: IImage): Promise<number> => {
   return results[0].insertId;
 };
 
-export { getAllImages, getImageById, addImage };
+// >> --- UPDATE AN IMAGE ---
+const updateImage = async (
+  idImage: number,
+  image: IImage
+): Promise<boolean> => {
+  let sql = 'UPDATE images SET ';
+  const sqlValues: Array<string | number | boolean> = [];
+  let oneValue = false;
+
+  if (image.idPage) {
+    sql += oneValue ? ', idPage = ? ' : ' idPage = ? ';
+    sqlValues.push(image.idPage);
+    oneValue = true;
+  }
+  if (image.image) {
+    sql += oneValue ? ', image = ? ' : ' image = ? ';
+    sqlValues.push(image.image);
+    oneValue = true;
+  }
+  sql += ' WHERE id = ?';
+  sqlValues.push(idImage);
+
+  const results = await connection
+    .promise()
+    .query<ResultSetHeader>(sql, sqlValues);
+  return results[0].affectedRows === 1;
+};
+
+export { getAllImages, getImageById, addImage, updateImage };
