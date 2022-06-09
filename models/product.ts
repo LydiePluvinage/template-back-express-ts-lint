@@ -2,47 +2,47 @@ import connection from '../db-config';
 import IProduct from '../interfaces/IProduct';
 import { ResultSetHeader } from 'mysql2';
 
-
-
 const getAllProducts = async (sortBy = ''): Promise<IProduct[]> => {
-    let sql = `SELECT * FROM products`;
-    if (sortBy) {
-      sql += ` ORDER BY ${sortBy}`;
-    }
-    const results = await connection.promise().query<IProduct[]>(sql);
-    return results[0];
-  };
-
-  //route by title
-  const getProductById = async (idProduct:number):Promise<IProduct> => {
-    const [results] = await connection
-    .promise()
-    .query<IProduct[]>('SELECT * FROM products WHERE id = ?', [
-      idProduct,
-    ]);
+  let sql = `SELECT * FROM products`;
+  if (sortBy) {
+    sql += ` ORDER BY ${sortBy}`;
+  }
+  const results = await connection.promise().query<IProduct[]>(sql);
   return results[0];
 };
 
-//route post 
+//route by title
+const getProductById = async (idProduct: number): Promise<IProduct> => {
+  const [results] = await connection
+    .promise()
+    .query<IProduct[]>('SELECT * FROM products WHERE id = ?', [idProduct]);
+  return results[0];
+};
+
+//route post
 const addProduct = async (product: IProduct): Promise<number> => {
-  
   const results = await connection
     .promise()
     .query<ResultSetHeader>(
       'INSERT INTO products (productRef,productImage,productName,productPrice,productDesc,productStock) VALUES (?, ?, ?, ?,?,?)',
-      [product.productRef, 
-      product.productImage,
-      product.productName, 
-      product.productPrice, 
-      product.productDesc, 
-      product.productStock]
+      [
+        product.productRef,
+        product.productImage,
+        product.productName,
+        product.productPrice,
+        product.productDesc,
+        product.productStock,
+      ]
     );
   return results[0].insertId;
 };
 
 //route PUT
 
-const updateProduct = async (idProduct: number, product: IProduct): Promise<boolean> => {
+const updateProduct = async (
+  idProduct: number,
+  product: IProduct
+): Promise<boolean> => {
   let sql = 'UPDATE products SET ';
   const sqlValues: Array<string | number | boolean> = [];
   let oneValue = false;
