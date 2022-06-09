@@ -89,29 +89,40 @@ const setupRoutes = (server: Express) => {
   );
 
   // PRODUCT
-//route GET ALL
-server.get('/api/products',productsController.getAllProducts)
+  //route GET ALL
+  server.get('/api/products', productsController.getAllProducts);
 
-//route GET by id
-server.get('/api/products/:idProduct', productsController.getOneProduct);
+  //route GET by id
+  server.get('/api/products/:idProduct', productsController.getOneProduct);
 
- //route POST
- server.post('/api/products',
- productsController.validateProduct,
- productsController.addProduct
-);
+  //route POST
+  server.post(
+    '/api/products',
+    productsController.validateProduct,
+    productsController.addProduct
+  );
 
-//route PUT
-server.put(
-  '/api/products/:idProduct',
-  productsController.validateProduct,
-  productsController.productExists,
-  productsController.updateProduct
-);
+  //route PUT
+  server.put(
+    '/api/products/:idProduct',
+    productsController.validateProduct,
+    productsController.productExists,
+    productsController.updateProduct
+  );
 
   // >> IMAGES
-  // ? All images
+  // ? GET all images
   server.get('/api/images', imagesController.getAllImages);
+
+  // ? GET images by id
+  server.get('/api/images/:idImage', imagesController.getAllImages);
+
+  // ? POST a new image
+  server.post(
+    '/api/images',
+    imagesController.validateImage,
+    imagesController.addImage
+  );
 };
 
 export default setupRoutes;
