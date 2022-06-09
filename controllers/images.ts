@@ -81,7 +81,7 @@ const imageExists = (async (
   res: Response,
   next: NextFunction
 ) => {
-  // Récupèrer l'id product de req.params
+  // Récupèrer l'id image de req.params
   const { idImage } = req.params;
   // Vérifier si l'image existe
   try {
