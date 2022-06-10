@@ -35,7 +35,7 @@ const updateStatus = async (
   let oneValue = false;
 
   if (status.name) {
-    sql += oneValue ? 'name ' : 'name = ? ';
+    sql += oneValue ? 'name = ? ' : 'name = ?';
     sqlValues.push(status.name);
     oneValue = true;
   }
