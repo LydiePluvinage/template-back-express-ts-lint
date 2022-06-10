@@ -29,12 +29,13 @@ const addAddress = async (address: IAddress): Promise<number> => {
   const results = await connection
     .promise()
     .query<ResultSetHeader>(
-      'INSERT INTO addresses (address1, address2, postalCode, city, idUser ) VALUES (?, ?, ?, ?, ?)',
+      'INSERT INTO addresses (addressLine1, addressLine2, zipCode, city, country, idUser ) VALUES (?, ?, ?, ?, ?, ?)',
       [
-        address.address1,
-        address.address2,
-        address.postalCode,
+        address.addressLine1,
+        address.addressLine2,
+        address.zipCode,
         address.city,
+        address.country,
         address.idUser,
       ]
     );
@@ -50,23 +51,28 @@ const updateAddress = async (
   let oneValue = false;
 
   if (address.addressLine1) {
-    sql += 'address1 = ? ';
+    sql += 'addressLine1 = ? ';
     sqlValues.push(address.addressLine1);
     oneValue = true;
   }
   if (address.addressLine2) {
-    sql += oneValue ? ', address2 = ? ' : ' address2 = ? ';
+    sql += oneValue ? ', addressLine2 = ? ' : ' addressLine2 = ? ';
     sqlValues.push(address.addressLine2);
     oneValue = true;
   }
   if (address.zipCode) {
-    sql += oneValue ? ', postalCode = ? ' : ' postalCode = ? ';
+    sql += oneValue ? ', zipCode = ? ' : ' zipCode = ? ';
     sqlValues.push(address.zipCode);
     oneValue = true;
   }
   if (address.city) {
     sql += oneValue ? ', city = ? ' : ' city = ? ';
     sqlValues.push(address.city);
+    oneValue = true;
+  }
+  if (address.country) {
+    sql += oneValue ? ', country = ? ' : ' country = ? ';
+    sqlValues.push(address.country);
     oneValue = true;
   }
   if (address.id_user) {

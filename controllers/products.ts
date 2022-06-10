@@ -29,34 +29,34 @@ const validateProduct = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAllProducts = (async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const sortBy: string = req.query.sort as string;
-      const products = await Product.getAllProducts(formatSortString(sortBy));
-  
-      res.setHeader(
-        'Content-Range',
-        `products : 0-${products.length}/${products.length + 1}`
-      );
-      return res.status(200).json(products);
-    } catch (err) {
-      next(err);
-    }
-  }) as RequestHandler; // Used to avoid eslint error 
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const sortBy: string = req.query.sort as string;
+    const products = await Product.getAllProducts(formatSortString(sortBy));
 
-  // route GET by id
-  const getOneProduct = (async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-    ) => {
-        try {
-            const {idProduct} = req.params;
-            const product = await Product.getProductById(Number(idProduct));
-            product ? res.status(200).json(product) : res.sendStatus(404);
+    res.setHeader(
+      'Content-Range',
+      `products : 0-${products.length}/${products.length + 1}`
+    );
+    return res.status(200).json(products);
+  } catch (err) {
+    next(err);
+  }
+}) as RequestHandler; // Used to avoid eslint error
+
+// route GET by id
+const getOneProduct = (async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { idProduct } = req.params;
+    const product = await Product.getProductById(Number(idProduct));
+    product ? res.status(200).json(product) : res.sendStatus(404);
   } catch (err) {
     next(err);
   }
@@ -76,9 +76,13 @@ const addProduct = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// puts a product 
+// puts a product
 // checks if product exists
-const productExists = (async (req: Request, res: Response, next: NextFunction) => {
+const productExists = (async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   // Récupèrer l'id product de req.params
   const { idProduct } = req.params;
   // Vérifie if product exists
@@ -98,7 +102,11 @@ const productExists = (async (req: Request, res: Response, next: NextFunction) =
   }
 }) as RequestHandler;
 // updates product
-const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
+const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { idProduct } = req.params;
     const productUpdated = await Product.updateProduct(
@@ -106,8 +114,8 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
       req.body as IProduct
     );
     if (productUpdated) {
-      const user = await Product.getProductById(Number(idProduct));
-      res.status(200).send(user); // react-admin needs this response
+      const product = await Product.getProductById(Number(idProduct));
+      res.status(200).send(product); // react-admin needs this response
     } else {
       throw new ErrorHandler(500, `Product cannot be updated`);
     }
@@ -116,9 +124,34 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
+//delete product
+const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Récupèrer l'id product de req.params
+    const { idProduct } = req.params;
+    // Vérifie if product exist
+    const product = await Product.getProductById(Number(idProduct));
+    const productDeleted = await Product.deleteProduct(Number(idProduct));
+    if (productDeleted) {
+      res.status(200).send(product); // react-admin needs this response
+    } else {
+      throw new ErrorHandler(500, `This product cannot be deleted`);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
-
-  export default {
-      getAllProducts,getOneProduct,addProduct,validateProduct,productExists,updateProduct,
-
-  };
+export default {
+  getAllProducts,
+  getOneProduct,
+  addProduct,
+  validateProduct,
+  productExists,
+  updateProduct,
+  deleteProduct,
+};
