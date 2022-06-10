@@ -3,6 +3,7 @@ import addressesController from './controllers/addresses';
 import productsController from './controllers/products';
 import statusController from './controllers/status';
 import colorsController from './controllers/colors';
+import pagesController from './controllers/pages';
 import imagesController from './controllers/images';
 import newslettersController from './controllers/newsletters';
 import paragraphsController from './controllers/paragraphs';
@@ -178,13 +179,15 @@ const setupRoutes = (server: Express) => {
   // PUT status
   server.put('/api/status/:idStatus', statusController.updateStatus);
 
-
-// NEWSLETTERS
+  // NEWSLETTERS
   //route GET ALL
   server.get('/api/newsletters', newslettersController.getAllNewsletters);
 
   //route GET by id
-  server.get('/api/newsletters/:idNewsletter', newslettersController.getOneNewsletter);
+  server.get(
+    '/api/newsletters/:idNewsletter',
+    newslettersController.getOneNewsletter
+  );
 
   //route POST
   server.post(
@@ -206,11 +209,8 @@ const setupRoutes = (server: Express) => {
   server.delete(
     '/api/newsletters/:idNewsletters',
     newslettersController.newsletterExists,
-    newslettersController.deleteNewsletter,
+    newslettersController.deleteNewsletter
   );
-
-
-
 
   // => COLORS <= //
   // GET ALL
@@ -230,6 +230,23 @@ const setupRoutes = (server: Express) => {
     colorsController.colorExists,
     colorsController.updateColor
   );
-
+  // => PAGES <= //
+  // GET ALL
+  server.get('/api/pages', pagesController.getAllPages);
+  // GET BY ID
+  server.get('/api/pages/:idPage', pagesController.getOnePage);
+  // POST PAGE
+  server.post(
+    '/api/pages',
+    pagesController.validatePage,
+    pagesController.addPage
+  );
+  // PUT PAGES
+  server.put(
+    '/api/pages/:idPage',
+    pagesController.validatePage,
+    pagesController.pageExists,
+    pagesController.updatePage
+  );
 };
 export default setupRoutes;
