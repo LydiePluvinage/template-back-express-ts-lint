@@ -119,6 +119,24 @@ const updateImage = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// >> --- DELETE AN IMAGE ---
+const deleteImage = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Récupèrer l'id de l'image de req.params
+    const { idImage } = req.params;
+    // Vérifie if image existe
+    const image = await Image.getImageById(Number(idImage));
+    const imageDeleted = await Image.deleteImage(Number(idImage));
+    if (imageDeleted) {
+      res.status(200).send(image); // react-admin needs this response
+    } else {
+      throw new ErrorHandler(500, `This image cannot be deleted`);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   getAllImages,
   getOneImage,
@@ -126,4 +144,5 @@ export default {
   validateImage,
   updateImage,
   imageExists,
+  deleteImage,
 };
