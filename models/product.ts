@@ -95,7 +95,10 @@ const deleteProduct = async (idProduct: number): Promise<boolean> => {
   return results[0].affectedRows === 1;
 };
 
-
-  export {
-      getAllProducts,getProductById,addProduct,updateProduct,deleteProduct,
-  };
+export {
+  getAllProducts,
+  getProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};

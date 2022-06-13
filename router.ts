@@ -169,6 +169,13 @@ const setupRoutes = (server: Express) => {
     paragraphsController.updateParagraph
   );
 
+  // ? DELETE a paragraph
+  server.delete(
+    '/api/paragraphs/:idParagraph',
+    paragraphsController.paragraphExists,
+    paragraphsController.deleteParagraph
+  );
+
   // => ROUTES GET POUR STATUS <= //
   //GET ALL
   server.get('/api/status', statusController.getAllStatus);

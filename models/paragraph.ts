@@ -61,4 +61,20 @@ const updateParagraph = async (
   return results[0].affectedRows === 1;
 };
 
-export { getAllParagraphs, getParagraphById, addParagraph, updateParagraph };
+// >> --- DELETE A PARAGRAPH ---
+const deleteParagraph = async (idParagraph: number): Promise<boolean> => {
+  const results = await connection
+    .promise()
+    .query<ResultSetHeader>('DELETE FROM paragraphs WHERE id = ?', [
+      idParagraph,
+    ]);
+  return results[0].affectedRows === 1;
+};
+
+export {
+  getAllParagraphs,
+  getParagraphById,
+  addParagraph,
+  updateParagraph,
+  deleteParagraph,
+};
