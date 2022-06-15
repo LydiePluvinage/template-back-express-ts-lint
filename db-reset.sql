@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `Brille`.`orders`(
     `idAddress` INT NOT NULL,
     `orderDate` TIMESTAMP NOT NULL,
     `orderTrackingNum` INT NOT NULL,
-    `orderStatus` VARCHAR(100) NOT NULL
+    
 );
 
 CREATE TABLE IF NOT EXISTS `Brille`.`colors`(
@@ -293,16 +293,16 @@ VALUES
     )
 VALUES
     (
-        'Non livrée'
+        'En attente'
+    ),
+    (
+        'Validée'
+    ),
+    (
+        'En cours de préparation'
     ),
     (
         'Livrée'
-    ),
-    (
-        'Non livrée'
-    ),
-    (
-        'Non livrée'
     );
 
     INSERT INTO
