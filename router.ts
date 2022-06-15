@@ -144,6 +144,13 @@ const setupRoutes = (server: Express) => {
     imagesController.updateImage
   );
 
+  // ? DELETE an image
+  server.delete(
+    '/api/images/:idImage',
+    imagesController.imageExists,
+    imagesController.deleteImage
+  );
+
   // >> --- PARAGRAPHS ---
   // ? GET all the paragraphs
   server.get('/api/paragraphs', paragraphsController.getAllParagraphs);

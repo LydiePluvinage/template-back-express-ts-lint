@@ -59,4 +59,12 @@ const updateImage = async (
   return results[0].affectedRows === 1;
 };
 
-export { getAllImages, getImageById, addImage, updateImage };
+// >> --- DELETE AN IMAGE ---
+const deleteImage = async (idImage: number): Promise<boolean> => {
+  const results = await connection
+    .promise()
+    .query<ResultSetHeader>('DELETE FROM images WHERE id = ?', [idImage]);
+  return results[0].affectedRows === 1;
+};
+
+export { getAllImages, getImageById, addImage, updateImage, deleteImage };
