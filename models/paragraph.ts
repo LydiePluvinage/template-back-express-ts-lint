@@ -27,8 +27,8 @@ const addParagraph = async (paragraph: IParagraph): Promise<number> => {
   const results = await connection
     .promise()
     .query<ResultSetHeader>(
-      'INSERT INTO paragraphs (idPage, description) VALUES (?, ?)',
-      [paragraph.idPage, paragraph.description]
+      'INSERT INTO paragraphs (idPage, title, description) VALUES (?, ?, ?)',
+      [paragraph.idPage, paragraph.title, paragraph.description]
     );
   return results[0].insertId;
 };
@@ -45,6 +45,11 @@ const updateParagraph = async (
   if (paragraph.idPage) {
     sql += oneValue ? ', idPage = ? ' : ' idPage = ? ';
     sqlValues.push(paragraph.idPage);
+    oneValue = true;
+  }
+  if (paragraph.title) {
+    sql += oneValue ? ', title = ? ' : ' title = ? ';
+    sqlValues.push(paragraph.title);
     oneValue = true;
   }
   if (paragraph.description) {

@@ -16,7 +16,7 @@ const validateProduct = (req: Request, res: Response, next: NextFunction) => {
     productImage: Joi.string().max(255).presence(required),
     productName: Joi.string().max(200).presence(required),
     productPrice: Joi.number().max(255).presence(required),
-    productDesc: Joi.string().max(255).optional(),
+    productDesc: Joi.string().optional(),
     productStock: Joi.number().max(255).presence(required),
     id: Joi.number().optional(), // pour react-admin
   }).validate(req.body, { abortEarly: false }).error;
