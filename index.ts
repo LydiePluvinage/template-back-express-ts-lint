@@ -36,5 +36,7 @@ setupRoutes(app);
 app.use(handleError);
 
 app.listen(port, () => {
+  /* eslint-disable no-console */
   console.log(`server is listening on ${port}`);
+  /* eslint-enable no-console */
 });
