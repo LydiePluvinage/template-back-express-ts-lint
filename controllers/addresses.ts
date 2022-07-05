@@ -21,7 +21,6 @@ const validateAddress = (req: Request, res: Response, next: NextFunction) => {
     id: Joi.number().optional(), // pour react-admin
   }).validate(req.body, { abortEarly: false }).error;
   if (errors) {
-    console.log(errors.message);
     next(new ErrorHandler(422, errors.message));
   } else {
     next();

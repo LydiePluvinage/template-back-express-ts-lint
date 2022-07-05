@@ -26,7 +26,6 @@ const validateMovie = (req: Request, res: Response, next: NextFunction) => {
   }).validate(movie, { abortEarly: false }).error;
   // si l'objet errors n'est pas vide
   if (errors) {
-    console.log(errors.message);
     // renvoie l'erreur à l'utilisateur
     next(new ErrorHandler(422, errors.message));
   } else {
@@ -46,7 +45,7 @@ const movieTitleIsFree = async (
   const { title } = req.body as IMovie;
   // vérifie dans la base qu'un film avec ce titre n'existe pas
   const movie = await getMovieByTitle(title);
-  console.log(movie); // pour tester que getMovieByTitle fonctionne
+  // console.log(movie); // pour tester que getMovieByTitle fonctionne
   // pour tester, essayer avec un film dans la base : Pulp Fiction
   if (movie) {
     // il y a un film existant avec ce titre => erreur
@@ -61,7 +60,7 @@ const addMovie = async (req: Request, res: Response, next: NextFunction) => {
   const movie = req.body as IMovie;
   // on va récupèrer l'id créé
   const idMovieCreated = await createMovie(movie);
-  console.log(idMovieCreated);
+  // console.log(idMovieCreated);
   // si j'ai bien reçu un id neuf
   if (idMovieCreated) {
     res.status(201).send({ ...movie, id: idMovieCreated });

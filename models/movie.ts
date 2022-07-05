@@ -18,7 +18,7 @@ const createMovie = async (movie: IMovie) => {
       'INSERT INTO movies (title, director, color, year, duration) VALUES(?, ?, ?, ?, ?)',
       [movie.title, movie.director, movie.color, movie.year, movie.duration]
     );
-  console.log(results);
+  // console.log(results);
   // renvoie l'id créé
   return results[0].insertId;
 };
