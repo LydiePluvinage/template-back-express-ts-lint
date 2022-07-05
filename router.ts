@@ -104,7 +104,7 @@ const setupRoutes = (server: Express) => {
   //route POST
   server.post(
     '/api/products',
-    productsController.validateProduct,
+    // productsController.validateProduct,
     productsController.addProduct
   );
 

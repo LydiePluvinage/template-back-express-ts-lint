@@ -24,8 +24,8 @@ const getPageById = async (idPage: number): Promise<IPage> => {
 const addPage = async (page: IPage): Promise<number> => {
   const results = await connection
     .promise()
-    .query<ResultSetHeader>('INSERT INTO pages (title) VALUES (?)', [
-      page.title,
+    .query<ResultSetHeader>('INSERT INTO pages (name) VALUES (?)', [
+      page.name,
     ]);
   return results[0].insertId;
 };
@@ -36,9 +36,9 @@ const updatePage = async (idPage: number, page: IPage): Promise<boolean> => {
   const sqlValues: Array<string | number | boolean> = [];
   let oneValue = false;
 
-  if (page.title) {
-    sql += oneValue ? ', title = ? ' : ' title = ? ';
-    sqlValues.push(page.title);
+  if (page.name) {
+    sql += oneValue ? ', name = ? ' : ' name = ? ';
+    sqlValues.push(page.name);
     oneValue = true;
   }
   sql += ' WHERE id = ?';
