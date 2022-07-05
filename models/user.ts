@@ -12,7 +12,7 @@ const hashingOptions: Options & { raw?: false } = {
   parallelism: 1,
 };
 
-const hashPassword = (password: string): Promise<string> => {
+const hashPassword = (password: string = ''): Promise<string> => {
   return argon2.hash(password, hashingOptions);
 };
 
