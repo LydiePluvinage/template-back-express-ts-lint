@@ -37,7 +37,8 @@
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "pm2": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
