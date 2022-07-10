@@ -21,11 +21,6 @@ app.use(cors(corsOptions));
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Content-Type', 'application/json');
-  // res.setHeader(
-  //   'Access-Control-Allow-Origin',
-  //   'https://test-deploy-fullstack.vercel.app,http://localhost:3000'
-  // );
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, DELETE, OPTIONS'
