@@ -13,7 +13,8 @@
     "fix": "eslint \"./**/*.ts\" --fix",
     "prettify": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
