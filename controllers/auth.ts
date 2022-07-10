@@ -31,6 +31,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         password,
         (user.password = '')
       );
+      console.log(passwordIsCorrect);
       if (passwordIsCorrect) {
         console.log(email, Number(user.id), user.admin);
         const token = calculateToken(email, Number(user.id), user.admin);
