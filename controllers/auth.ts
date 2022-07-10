@@ -34,7 +34,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       if (passwordIsCorrect) {
         const token = calculateToken(email, Number(user.id), user.admin);
 
-        res.cookie('user_token', token, { sameSite: 'none', secure: true });
+        res.cookie(
+          'user_token',
+          token,
+          // this option is mandatory because frontend and backend have different domains
+          { sameSite: 'none', secure: true }
+        );
         res.status(200).send({
           id: user.id,
           firstname: user.firstname,

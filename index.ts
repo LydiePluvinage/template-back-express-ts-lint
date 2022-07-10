@@ -14,6 +14,7 @@ const corsOptions: cors.CorsOptions = {
   credentials: true,
   // must-have for frontend to communicate with API
   origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
 };
 
 // middleware cors
