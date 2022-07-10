@@ -21,11 +21,11 @@ app.use(cors(corsOptions));
 
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader(
-    //test
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
+  // res.setHeader(
+  //   //test
+  //   'Access-Control-Allow-Headers',
+  //   'Origin, X-Requested-With, Content-Type, Accept'
+  // );
   next();
 });
 
