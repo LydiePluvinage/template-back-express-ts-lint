@@ -38,7 +38,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
           'user_token',
           token,
           // this option is mandatory because frontend and backend have different domains
-          { sameSite: 'none', secure: true }
+          { httpOnly: false, sameSite: 'none', secure: true }
         );
         res.status(200).send({
           id: user.id,
