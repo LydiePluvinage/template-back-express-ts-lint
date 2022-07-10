@@ -1,10 +1,8 @@
-CREATE DATABASE Project3;
-USE Project3;
 
-DROP TABLE IF EXISTS `Project3`.`addresses`;
-DROP TABLE IF EXISTS `Project3`.`users`;
+DROP TABLE IF EXISTS `addresses`;
+DROP TABLE IF EXISTS `users`;
 
-CREATE TABLE IF NOT EXISTS `Project3`.`users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstname` VARCHAR(100) NOT NULL,
   `lastname` VARCHAR(100) NOT NULL,
@@ -14,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `Project3`.`users` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `Project3`.`addresses` (
+CREATE TABLE IF NOT EXISTS `addresses` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `postalCode` VARCHAR(10) NOT NULL,
   `city` VARCHAR(200) NOT NULL,
@@ -22,10 +20,9 @@ CREATE TABLE IF NOT EXISTS `Project3`.`addresses` (
   `address2` VARCHAR(255) NULL,
   `idUser` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_addresses_users_idx` (`idUser` ASC) VISIBLE,
   CONSTRAINT `fk_addresses_users`
     FOREIGN KEY (`idUser`)
-    REFERENCES `Project3`.`users` (`id`)
+    REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -39,6 +36,6 @@ VALUES('Lydie', 'Pluvinage','lydie.pluvinage@wildcodeschool.com',1, "$argon2id$v
 INSERT INTO addresses (postalCode, city, address1, address2, idUser)
 VALUES('64100', 'Bayonne', 'Sur la place', null, 1),
 ('64100', 'Bayonne', 'Au bout de la rue', 'Au fond à droite', 1),
-('64200', 'Biarritz', '8 min de l''école', 'Mais bon ça reste à Biarritz', 2),
-('33000', 'Bordeaux', 'A côté des girondins', null, 3),
-('64990', 'Villefranque', 'Au bout du chemin', null, 4);
+('64200', 'Biarritz', '8 min de l''école', 'Mais bon ça reste à Biarritz', 11),
+('33000', 'Bordeaux', 'A côté des girondins', null, 21),
+('64990', 'Villefranque', 'Au bout du chemin', null, 31);
