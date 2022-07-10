@@ -35,10 +35,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const token = calculateToken(email, Number(user.id), user.admin);
 
         res.cookie('user_token', token, {
-          maxAge: 1000 * 60 * 10,
-          httpOnly: false,
+          httpOnly: true,
+          sameSite: process.env.NODE_ENV === 'DEV' ? true : 'none',
+          secure: process.env.NODE_ENV === 'DEV' ? false : true,
         });
-        res.status(200).json({
+        res.status(200).send({
           id: user.id,
           firstname: user.firstname,
           admin: user.admin,
