@@ -34,15 +34,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       if (passwordIsCorrect) {
         const token = calculateToken(email, Number(user.id), user.admin);
 
-        res.cookie(
-          'user_token',
-          token
-          // {
-          //   httpOnly: true,
-          //   sameSite: process.env.NODE_ENV === 'DEV' ? true : 'none',
-          //   secure: process.env.NODE_ENV === 'DEV' ? false : true,
-          // }
-        );
+        res.cookie('user_token', token, { sameSite: 'none', secure: true });
         res.status(200).send({
           id: user.id,
           firstname: user.firstname,
