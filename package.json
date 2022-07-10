@@ -7,7 +7,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "ts": "tsc -w",
     "postinstall": "tsc",
     "fix": "eslint \"./**/*.ts\" --fix",
