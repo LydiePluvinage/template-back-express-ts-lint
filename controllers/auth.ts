@@ -37,8 +37,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         res.cookie(
           'user_token',
           token,
-          // this option is mandatory because frontend and backend have different domains
-          { httpOnly: false, sameSite: 'none', secure: true }
+
+          {
+            httpOnly: false, // test
+            sameSite: 'none',
+            secure: true,
+          } // this option is mandatory because frontend and backend have different domains
         );
         res.status(200).send({
           id: user.id,

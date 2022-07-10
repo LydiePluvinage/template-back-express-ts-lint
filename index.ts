@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import { handleError } from './helpers/errors';
 import setupRoutes from './router';
@@ -11,23 +11,13 @@ const port = process.env.PORT || 3000;
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
   // for cookies
-  credentials: true,
+  // credentials: true,
   // must-have for frontend to communicate with API
   origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
 };
 
 // middleware cors
 app.use(cors(corsOptions));
-
-//middleware perso pour ajouter les headers nécessaires à react-admin et vercel
-app.use((req: Request, res: Response, next: NextFunction) => {
-  // res.setHeader(
-  //   //test
-  //   'Access-Control-Allow-Headers',
-  //   'Origin, X-Requested-With, Content-Type, Accept'
-  // );
-  next();
-});
 
 //middleware pour lire le body
 app.use(express.json());
