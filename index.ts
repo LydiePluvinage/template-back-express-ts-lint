@@ -15,6 +15,7 @@ const corsOptions: cors.CorsOptions = {
   exposedHeaders: ['agreementrequired', 'Content-Range'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
   methods: ['GET', 'PUT', 'POST'],
+  preflightContinue: true,
 };
 
 // middleware cors
