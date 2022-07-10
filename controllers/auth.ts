@@ -27,7 +27,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.getUserByEmail(email);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
-      console.log('avant verify');
       const passwordIsCorrect: boolean = await User.verifyPassword(
         password,
         user.password || ''
@@ -50,7 +49,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const calculateToken = (userEmail = '', idUser = 0, admin = 0) => {
-  console.log(process.env.PRIVATE_KEY);
   return jwt.sign(
     { email: userEmail, id: idUser, admin: admin },
     process.env.PRIVATE_KEY as string

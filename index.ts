@@ -21,15 +21,10 @@ app.use(cors(corsOptions));
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
-  res.header(
-    'Access-Control-Allow-Origin',
-    'https://test-deploy-fullstack.vercel.app'
-  );
-  res.header(
+  ader(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   );
-  res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Expose-Headers', 'agreementrequired');
   next();
 });
