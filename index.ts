@@ -14,7 +14,7 @@ const corsOptions: cors.CorsOptions = {
   credentials: true,
   // must-have for frontend to communicate with API
   origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
 };
 
 // middleware cors
@@ -22,6 +22,10 @@ app.use(cors(corsOptions));
 
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
   next();
 });
 
