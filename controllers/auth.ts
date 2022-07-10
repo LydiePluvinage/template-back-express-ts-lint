@@ -25,12 +25,13 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password = '' } = req.body as IUser;
     const user = await User.getUserByEmail(email);
+    console.log(user);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
       console.log('avant verify');
       const passwordIsCorrect: boolean = await User.verifyPassword(
         password,
-        (user.password = '')
+        user.password || ''
       );
       console.log('après vérify');
       console.log('correct ' + passwordIsCorrect);
