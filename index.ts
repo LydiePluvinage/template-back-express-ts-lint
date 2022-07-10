@@ -16,6 +16,7 @@ const corsOptions: cors.CorsOptions = {
 
 // middleware cors
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
