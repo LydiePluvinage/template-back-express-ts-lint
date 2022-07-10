@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
   credentials: true,
+  origin: 'https://test-deploy-fullstack.vercel.app',
   exposedHeaders: ['agreementrequired', 'Content-Range'],
 };
 
