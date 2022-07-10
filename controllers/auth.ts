@@ -27,6 +27,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.getUserByEmail(email);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
+      console.log(password);
+      console.log(user);
       const passwordIsCorrect: boolean = await User.verifyPassword(
         password,
         (user.password = '')
@@ -35,7 +37,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const token = calculateToken(email, Number(user.id), user.admin);
 
         res.cookie('user_token', token);
-        res.json({
+        res.status(200).json({
           id: user.id,
           firstname: user.firstname,
           admin: user.admin,
