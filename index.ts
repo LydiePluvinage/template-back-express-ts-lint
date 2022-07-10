@@ -23,7 +23,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
   res.header(
     'Access-Control-Allow-Origin',
-    'https://test-deploy-fullstack.herokuapp.com'
+    'https://test-deploy-fullstack.vercel.app'
   );
   res.header(
     'Access-Control-Allow-Headers',
