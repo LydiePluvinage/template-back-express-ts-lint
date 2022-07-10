@@ -25,7 +25,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password = '' } = req.body as IUser;
     const user = await User.getUserByEmail(email);
-    console.log(user);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
       console.log('avant verify');
@@ -33,10 +32,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         password,
         user.password || ''
       );
-      console.log('après vérify');
-      console.log('correct ' + passwordIsCorrect);
       if (passwordIsCorrect) {
-        console.log(email, Number(user.id), user.admin);
         const token = calculateToken(email, Number(user.id), user.admin);
 
         res.cookie('user_token', token);
@@ -49,7 +45,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       } else throw new ErrorHandler(401, 'Invalid Credentials');
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };

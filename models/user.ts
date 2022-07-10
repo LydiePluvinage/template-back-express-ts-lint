@@ -20,7 +20,6 @@ const verifyPassword = (
   password: string,
   hashedPassword: string
 ): Promise<boolean> => {
-  console.log(hashedPassword, password);
   return argon2.verify(hashedPassword, password, hashingOptions);
 };
 
