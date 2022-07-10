@@ -12,7 +12,13 @@ const port = process.env.PORT || 3000;
 const corsOptions: cors.CorsOptions = {
   credentials: true,
   exposedHeaders: ['agreementrequired', 'Content-Range'],
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Set-Cookie',
+  ],
   methods: ['GET', 'PUT', 'POST'],
   preflightContinue: true,
 };
