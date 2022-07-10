@@ -11,7 +11,11 @@ const port = process.env.PORT || 3000;
 // CORS : J'autorise localhost:3001 et localhost:3000
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
-  origin: ['http://localhost:3001', 'http://localhost:3000'],
+  origin: [
+    'https://test-deploy-fullstack.vercel.app/',
+    'http://localhost:3001',
+    'http://localhost:3000',
+  ],
   credentials: true,
 };
 
