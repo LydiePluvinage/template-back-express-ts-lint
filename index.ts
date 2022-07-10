@@ -19,7 +19,6 @@ const corsOptions: cors.CorsOptions = {
     'Accept',
     'Set-Cookie',
   ],
-  methods: ['GET', 'PUT', 'POST'],
   preflightContinue: true,
 };
 
@@ -34,6 +33,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     'https://test-deploy-fullstack.vercel.app'
   );
   res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, OPTIONS'
+  );
   next();
 });
 
