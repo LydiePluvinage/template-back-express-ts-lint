@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
-  origin: true,
   credentials: true,
   exposedHeaders: ['agreementrequired', 'Content-Range'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
