@@ -12,6 +12,9 @@ const port = process.env.PORT || 3000;
 const corsOptions: cors.CorsOptions = {
   origin: ['https://test-deploy-fullstack.vercel.app/'],
   credentials: true,
+  exposedHeaders: ['agreementrequired', 'Content-Range'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+  methods: ['GET', 'PUT', 'POST'],
 };
 
 // middleware cors
@@ -20,12 +23,6 @@ app.use(cors(corsOptions));
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
-  ader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  res.header('Access-Control-Expose-Headers', 'agreementrequired');
   next();
 });
 
