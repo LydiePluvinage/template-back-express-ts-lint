@@ -12,8 +12,6 @@ const port = process.env.PORT || 3000;
 const corsOptions: cors.CorsOptions = {
   credentials: true,
   exposedHeaders: ['agreementrequired', 'Content-Range'],
-
-  preflightContinue: true,
 };
 
 // middleware cors
