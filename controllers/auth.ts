@@ -39,7 +39,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
           token,
 
           {
-            httpOnly: false, // test
+            // httpOnly: false, // test
             sameSite: 'none',
             secure: true,
           } // this option is mandatory because frontend and backend have different domains

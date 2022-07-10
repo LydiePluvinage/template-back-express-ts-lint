@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
   // for cookies
-  // credentials: true,
+  credentials: true,
   // must-have for frontend to communicate with API
   origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
 };
