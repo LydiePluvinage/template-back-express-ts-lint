@@ -7,7 +7,9 @@
   "license": "ISC",
   "scripts": {
     "dev": "nodemon index.js",
+    "start": "node index.js",
     "ts": "tsc -w",
+    "postinstall": "tsc",
     "fix": "eslint \"./**/*.ts\" --fix",
     "prettify": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
