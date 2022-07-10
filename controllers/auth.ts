@@ -34,7 +34,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       if (passwordIsCorrect) {
         const token = calculateToken(email, Number(user.id), user.admin);
 
-        res.cookie('user_token', token);
+        res.cookie('user_token', token, {
+          maxAge: 1000 * 60 * 10,
+          httpOnly: false,
+        });
         res.status(200).json({
           id: user.id,
           firstname: user.firstname,
