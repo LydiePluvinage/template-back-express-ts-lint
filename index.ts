@@ -12,13 +12,7 @@ const port = process.env.PORT || 3000;
 const corsOptions: cors.CorsOptions = {
   credentials: true,
   exposedHeaders: ['agreementrequired', 'Content-Range'],
-  allowedHeaders: [
-    'Origin',
-    'X-Requested-With',
-    'Content-Type',
-    'Accept',
-    'Set-Cookie',
-  ],
+
   preflightContinue: true,
 };
 
@@ -36,6 +30,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, DELETE, OPTIONS'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin,X-Requested-With,Content-Type,Accept,Set-Cookie,X-PINGOTHER'
   );
   next();
 });
