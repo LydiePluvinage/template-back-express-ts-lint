@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
   credentials: true,
-  origin: 'https://test-deploy-fullstack.vercel.app',
+  origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
   exposedHeaders: ['agreementrequired', 'Content-Range'],
 };
 
@@ -21,10 +21,10 @@ app.use(cors(corsOptions));
 //middleware perso pour ajouter les headers nécessaires à react-admin et vercel
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://test-deploy-fullstack.vercel.app'
-  );
+  // res.setHeader(
+  //   'Access-Control-Allow-Origin',
+  //   'https://test-deploy-fullstack.vercel.app,http://localhost:3000'
+  // );
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader(
     'Access-Control-Allow-Methods',

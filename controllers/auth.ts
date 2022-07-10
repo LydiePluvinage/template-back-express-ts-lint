@@ -36,7 +36,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
         res.cookie('user_token', token, {
           httpOnly: true,
-          path: '/api',
           sameSite: process.env.NODE_ENV === 'DEV' ? true : 'none',
           secure: process.env.NODE_ENV === 'DEV' ? false : true,
         });
