@@ -28,6 +28,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     'Access-Control-Allow-Origin',
     'https://test-deploy-fullstack.vercel.app'
   );
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 });
 
