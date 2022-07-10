@@ -27,13 +27,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.getUserByEmail(email);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
-      console.log(password);
-      console.log(user);
       const passwordIsCorrect: boolean = await User.verifyPassword(
         password,
         (user.password = '')
       );
       if (passwordIsCorrect) {
+        console.log(email, Number(user.id), user.admin);
         const token = calculateToken(email, Number(user.id), user.admin);
 
         res.cookie('user_token', token);
@@ -51,6 +50,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const calculateToken = (userEmail = '', idUser = 0, admin = 0) => {
+  console.log(process.env.PRIVATE_KEY);
   return jwt.sign(
     { email: userEmail, id: idUser, admin: admin },
     process.env.PRIVATE_KEY as string
