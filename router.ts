@@ -9,6 +9,8 @@ const setupRoutes = (server: Express) => {
   // USERS
   // get users
   server.get('/api/users', usersController.getAllUsers);
+  // get one user
+  server.get('/api/users/:idUser', usersController.getOneUser);
   // post users, checking if email is free then adding user
   server.post(
     '/api/users',

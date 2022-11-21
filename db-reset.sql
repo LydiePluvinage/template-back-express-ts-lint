@@ -36,6 +36,6 @@ VALUES('Lydie', 'Pluvinage','lydie.pluvinage@wildcodeschool.com',1, "$argon2id$v
 INSERT INTO addresses (postalCode, city, address1, address2, idUser)
 VALUES('64100', 'Bayonne', 'Sur la place', null, 1),
 ('64100', 'Bayonne', 'Au bout de la rue', 'Au fond à droite', 1),
-('64200', 'Biarritz', '8 min de l''école', 'Mais bon ça reste à Biarritz', 11),
-('33000', 'Bordeaux', 'A côté des girondins', null, 21),
-('64990', 'Villefranque', 'Au bout du chemin', null, 31);
+('64200', 'Biarritz', '8 min de l''école', 'Mais bon ça reste à Biarritz', 2),
+('33000', 'Bordeaux', 'A côté des girondins', null, 3),
+('64990', 'Villefranque', 'Au bout du chemin', null, 4);

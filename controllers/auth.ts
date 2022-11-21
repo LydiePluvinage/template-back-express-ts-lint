@@ -25,6 +25,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password = '' } = req.body as IUser;
     const user = await User.getUserByEmail(email);
+    console.log(user);
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
       const passwordIsCorrect: boolean = await User.verifyPassword(
@@ -51,6 +52,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       } else throw new ErrorHandler(401, 'Invalid Credentials');
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

@@ -39,7 +39,7 @@ const emailIsFree = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAllUsers = async (): Promise<IUser[]> => {
   // on ne met JAMAIS * pour les users pour les password et les droits
-  const sql = `SELECT id, firstname, lastname FROM users`;
+  const sql = `SELECT id, firstname, lastname, email, admin FROM users`;
 
   // Quand tu auras la réponse, mets le dans results
   const results = await connection.promise().query<IUser[]>(sql);

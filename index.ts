@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import { handleError } from './helpers/errors';
 import setupRoutes from './router';
@@ -13,7 +13,7 @@ const corsOptions: cors.CorsOptions = {
   // for cookies
   credentials: true,
   // must-have for frontend to communicate with API
-  origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
+  origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3001'],
 };
 
 // middleware cors
