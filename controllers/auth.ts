@@ -52,7 +52,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       } else throw new ErrorHandler(401, 'Invalid Credentials');
     }
   } catch (err) {
-    console.error(err);
     next(err);
   }
 };
