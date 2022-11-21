@@ -25,7 +25,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password = '' } = req.body as IUser;
     const user = await User.getUserByEmail(email);
-    console.log(user);
+
     if (!user) throw new ErrorHandler(401, 'This user does not exist');
     else {
       const passwordIsCorrect: boolean = await User.verifyPassword(
@@ -52,7 +52,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       } else throw new ErrorHandler(401, 'Invalid Credentials');
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 };
@@ -70,7 +70,7 @@ interface ICookie {
 
 const getCurrentSession = (req: Request, res: Response, next: NextFunction) => {
   const myCookie = req.cookies as ICookie;
-  console.log(myCookie);
+
   if (!myCookie.user_token && !req.headers.authorization) {
     next(new ErrorHandler(401, 'Unauthorized user, please login'));
   } else {
